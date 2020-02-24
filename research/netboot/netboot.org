@@ -1,0 +1,38 @@
+#+TITLE: netboot
+#+AUTHOR: Stephen Heywood
+
+
+* Summary
+
+Setup a cluster with supporting services to network boot a Rapberry Pi.
+Due to the initial boot process we need to have the PXE container connect to the host network on boot.
+
+* Testing local environment
+** shell
+
+  #+begin_src shell 
+  date
+  #+end_src
+
+  #+RESULTS:
+  #+begin_src shell
+  Mon Feb 24 16:04:39 NZDT 2020
+  #+end_src
+
+** tmate
+
+  #+begin_src tmate
+  date
+  #+end_src
+
+* PXE Dockerfile
+
+  #+begin_src shell
+    sudo docker build -t heyste/pxeboot pxe
+  #+end_src
+
+* TFTP Dockerfile
+
+  #+begin_src shell
+    sudo docker build -t heyste/tftpboot tftp
+  #+end_src

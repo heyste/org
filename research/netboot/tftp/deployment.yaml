@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dnsmasq
+  name: netboot
 spec:
   replicas: 1
   selector:
     matchLabels:
-      coop.ii: dnsmasq
+      coop.ii: netboot
   template:
     metadata:
       labels:
-        coop.ii: dnsmasq
+        coop.ii: netboot
     spec:
       allowPrivilegeEscalation: true
       allowedCapabilities:
@@ -24,12 +24,10 @@ spec:
       privileged: true
     spec:
       containers:
-      - name: dnsmasq
-        image: "ii/dnsmasq"
+      - name: netboot-pi
+        image: "heyste/netboot-pi"
         ports:
-        - containerPort: 67
-          hostPort: 67
-          protocol: UDP
+        - containerPort: 8069
         - containerPort: 69
           hostPort: 69
           protocol: UDP
