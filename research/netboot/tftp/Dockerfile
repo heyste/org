@@ -19,4 +19,4 @@ RUN git clone --depth 1 https://github.com/Hexxeh/rpi-firmware.git \
     && mv rpi-firmware /tftpboot
 COPY dnsmasq.conf /etc/dnsmasq.conf
 #run!
-ENTRYPOINT ["webproc","--config","/etc/dnsmasq.conf","--","dnsmasq","--no-daemon"]
+ENTRYPOINT ["webproc","--port","8069","--config","/etc/dnsmasq.conf","--","dnsmasq","--no-daemon"]

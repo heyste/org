@@ -1,0 +1,52 @@
+#+TITLE: netboot
+#+AUTHOR: Stephen Heywood
+
+
+* Summary
+
+Setup a cluster with supporting services to network boot a Rapberry Pi.
+Due to the initial boot process we need to have the PXE container connected to the host network on boot.
+The TFTP container will be located within the cluster.
+
+* Testing local environment
+** shell
+
+  #+begin_src shell 
+  date
+  #+end_src
+
+  #+RESULTS:
+  #+begin_src shell
+  Mon Feb 24 16:04:39 NZDT 2020
+  #+end_src
+
+** tmate
+
+  #+begin_src tmate
+  date
+  #+end_src
+
+* PXE Dockerfile
+
+This container will listen on UDP port 67 for the initial PXE support. Also, it will listen on TCP port 8067 that will provide access to a web server which can update the PXE config, status and logs.
+
+  #+begin_src shell
+    sudo docker build -t heyste/pxeboot pxe
+  #+end_src
+
+* TFTP Dockerfile
+
+This container will listen on UDP port 69 for TFTP support. Also, it will listen on TCP port 8069 that will provide access to a web server which can update the TFTP config, status and logs.
+
+  #+begin_src shell
+    sudo docker build -t heyste/tftpboot tftp
+  #+end_src
+* Launch PXE
+
+  #+begin_src shell
+    docker pull heyste/pxeboot
+    docker run -d --restart=always \
+               --network host \
+               --name pxeboot \
+               heyste/pxeboot
+  #+end_src
