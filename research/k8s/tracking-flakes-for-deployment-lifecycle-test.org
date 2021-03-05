@@ -70,7 +70,7 @@ cat ci-kubernetes-kind-e2e-parallel-1367182553303224320-pass-deployment-lifecycl
 
 * Deployment Lifecycle Test: Fail #1
 
-Select a recent failing prow job from =release-master-blocking/kind-master-parallel=
+From =release-master-blocking/kind-master-parallel= reviewing test flake: https://prow.k8s.io/view/gs/kubernetes-jenkins/logs/ci-kubernetes-kind-e2e-parallel/1366153928210649088
 
 ** Combine Prow Logs together
 
@@ -96,7 +96,6 @@ nl ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail1.log | \
 #+END_SRC
 
 ** Locate the start/end of the test run
-
 *** Test Start
 
 #+BEGIN_SRC shell :results verbatim :exports both
@@ -268,4 +267,174 @@ cat ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail1-deployment-lifecycle-track-volume-iss
 128818	22:52:20.606931000 [/artifacts/logs/kind-worker/kubelet.log]                      Feb 28 22:52:20 kind-worker kubelet[243]: E0228 22:52:20.606931     243 pod_workers.go:191] Error syncing pod dc0a9362-fa20-419e-8ab4-7f2a4f27c9b8 ("test-deployment-7778d6bf57-fqqvk_deployment-2394(dc0a9362-fa20-419e-8ab4-7f2a4f27c9b8)"), skipping: failed to "StartContainer" for "test-deployment" with CreateContainerConfigError: "cannot find volume \"kube-api-access-2t44s\" to mount into container \"test-deployment\""
 128902	22:52:20.825451000 [/artifacts/logs/kind-worker/journal.log]                      Feb 28 22:52:20 kind-worker kubelet[243]: E0228 22:52:20.825451     243 event.go:264] Server rejected event '&v1.Event{TypeMeta:v1.TypeMeta{Kind:"", APIVersion:""}, ObjectMeta:v1.ObjectMeta{Name:"test-deployment-7778d6bf57-fqqvk.16680b29cf00e812", GenerateName:"", Namespace:"deployment-2394", SelfLink:"", UID:"", ResourceVersion:"", Generation:0, CreationTimestamp:v1.Time{Time:time.Time{wall:0x0, ext:0, loc:(*time.Location)(nil)}}, DeletionTimestamp:(*v1.Time)(nil), DeletionGracePeriodSeconds:(*int64)(nil), Labels:map[string]string(nil), Annotations:map[string]string(nil), OwnerReferences:[]v1.OwnerReference(nil), Finalizers:[]string(nil), ClusterName:"", ManagedFields:[]v1.ManagedFieldsEntry(nil)}, InvolvedObject:v1.ObjectReference{Kind:"Pod", Namespace:"deployment-2394", Name:"test-deployment-7778d6bf57-fqqvk", UID:"dc0a9362-fa20-419e-8ab4-7f2a4f27c9b8", APIVersion:"v1", ResourceVersion:"12891", FieldPath:"spec.containers{test-deployment}"}, Reason:"Failed", Message:"Error: cannot find volume \"kube-api-access-2t44s\" to mount into container \"test-deployment\"", Source:v1.EventSource{Component:"kubelet", Host:"kind-worker"}, FirstTimestamp:v1.Time{Time:time.Time{wall:0xc0072589242b8012, ext:380893991846, loc:(*time.Location)(0x3e95d80)}}, LastTimestamp:v1.Time{Time:time.Time{wall:0xc0072589242b8012, ext:380893991846, loc:(*time.Location)(0x3e95d80)}}, Count:1, Type:"Warning", EventTime:v1.MicroTime{Time:time.Time{wall:0x0, ext:0, loc:(*time.Location)(nil)}}, Series:(*v1.EventSeries)(nil), Action:"", Related:(*v1.ObjectReference)(nil), ReportingController:"", ReportingInstance:""}': 'namespaces "deployment-2394" not found' (will not retry!)
 128903	22:52:20.825451000 [/artifacts/logs/kind-worker/kubelet.log]                      Feb 28 22:52:20 kind-worker kubelet[243]: E0228 22:52:20.825451     243 event.go:264] Server rejected event '&v1.Event{TypeMeta:v1.TypeMeta{Kind:"", APIVersion:""}, ObjectMeta:v1.ObjectMeta{Name:"test-deployment-7778d6bf57-fqqvk.16680b29cf00e812", GenerateName:"", Namespace:"deployment-2394", SelfLink:"", UID:"", ResourceVersion:"", Generation:0, CreationTimestamp:v1.Time{Time:time.Time{wall:0x0, ext:0, loc:(*time.Location)(nil)}}, DeletionTimestamp:(*v1.Time)(nil), DeletionGracePeriodSeconds:(*int64)(nil), Labels:map[string]string(nil), Annotations:map[string]string(nil), OwnerReferences:[]v1.OwnerReference(nil), Finalizers:[]string(nil), ClusterName:"", ManagedFields:[]v1.ManagedFieldsEntry(nil)}, InvolvedObject:v1.ObjectReference{Kind:"Pod", Namespace:"deployment-2394", Name:"test-deployment-7778d6bf57-fqqvk", UID:"dc0a9362-fa20-419e-8ab4-7f2a4f27c9b8", APIVersion:"v1", ResourceVersion:"12891", FieldPath:"spec.containers{test-deployment}"}, Reason:"Failed", Message:"Error: cannot find volume \"kube-api-access-2t44s\" to mount into container \"test-deployment\"", Source:v1.EventSource{Component:"kubelet", Host:"kind-worker"}, FirstTimestamp:v1.Time{Time:time.Time{wall:0xc0072589242b8012, ext:380893991846, loc:(*time.Location)(0x3e95d80)}}, LastTimestamp:v1.Time{Time:time.Time{wall:0xc0072589242b8012, ext:380893991846, loc:(*time.Location)(0x3e95d80)}}, Count:1, Type:"Warning", EventTime:v1.MicroTime{Time:time.Time{wall:0x0, ext:0, loc:(*time.Location)(nil)}}, Series:(*v1.EventSeries)(nil), Action:"", Related:(*v1.ObjectReference)(nil), ReportingController:"", ReportingInstance:""}': 'namespaces "deployment-2394" not found' (will not retry!)
+#+end_example
+
+* Deployment Lifecycle Test: Fail #2
+
+From =release-master-blocking/kind-master-parallel= reviewing test flake: https://prow.k8s.io/view/gs/kubernetes-jenkins/logs/ci-kubernetes-kind-e2e-parallel/1365724105587822592
+
+** Combine Prow Logs together
+
+#+BEGIN_SRC shell :results silent :async t
+PROW_URL="https://prow.k8s.io/view/gs/kubernetes-jenkins/logs"
+PROW_JOB="ci-kubernetes-kind-e2e-parallel/1365724105587822592"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+LOG_DIR="/tmp/logs"
+
+docker run brianpursley/k8s-e2e-log-combiner ${PROW_URL}/${PROW_JOB} > ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2.log
+#+END_SRC
+
+** Filter log for 'Conformance'
+
+To help track/note events later we will included a set of line numbers in the resulting log file.
+
+#+BEGIN_SRC shell :results silent :async t
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+nl ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2.log | \
+   grep -a 'Conformance' > ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-conformance.log
+#+END_SRC
+
+** Locate the start/end of the test run
+*** Test Start
+
+#+BEGIN_SRC shell :results verbatim :exports both
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+cat ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-conformance.log | grep -a "\[It\] should run the lifecycle of a Deployment" | tail -4
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+311492	18:30:19.470000000 [/build-log.txt]                                               [It] should run the lifecycle of a Deployment [Conformance]
+506771	18:41:12.627000000 [/build-log.txt]                                               [91m[1m[Fail] [0m[90m[sig-apps] Deployment [0m[91m[1m[It] should run the lifecycle of a Deployment [Conformance] [0m
+#+end_example
+
+The above result provides the start of the test run at 311492, rounding to 310,000
+
+*** Test End
+
+#+BEGIN_SRC shell :results verbatim :exports both
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+cat ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-conformance.log | grep -a "Deployment should" | grep -a lifecycle | grep -v "PASSED" | tail -10
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+315184	18:31:19.520000000 [/build-log.txt]                                               {"msg":"FAILED [sig-apps] Deployment should run the lifecycle of a Deployment [Conformance]","total":-1,"completed":19,"skipped":144,"failed":1,"failures":["[sig-apps] Deployment should run the lifecycle of a Deployment [Conformance]"]}
+#+end_example
+
+The above result provides the end point in the test run at 315184, rounding to 320,000
+
+** Trim log file to Deployment Lifecycle Test run
+
+#+BEGIN_SRC shell :results silent :async t
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+nl ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2.log | \
+    head -320000 | tail -n +310000 > ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle.log
+#+END_SRC
+
+A short review of the logs will locate the namespace used by the deployment lifecycle test, =deployment-8926=
+
+** Short summary of deployment lifecycle test
+
+This filter provides a short log of the steps taken in testing the Deployment lifecycle.
+
+#+BEGIN_SRC shell :results silent :async t
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+cat ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle.log | \
+    grep -a "deployment-8926" > ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-8926.log
+#+END_SRC
+
+** Filtering logs futher
+*** Locate pod details
+
+#+BEGIN_SRC shell :results silent :async t
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+cat ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle.log | \
+    grep -a "deployment-8926/test-deployment-" > ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle-pod-details.log
+#+END_SRC
+
+*** Locate pod events
+
+#+BEGIN_SRC shell :results silent :async t
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+cat ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle.log | \
+    grep -a "test-deployment-7778d6bf57-" > ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle-pod-events.log
+#+END_SRC
+
+** Locate test failures
+*** Error: cannot find volume
+
+#+BEGIN_SRC shell :results verbatim :exports both
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+grep -a "cannot find volume \"" ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle-pod-events.log  | tail -1
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+316062	18:31:27.667640000 [/artifacts/logs/kind-worker2/kubelet.log]                     Feb 27 18:31:27 kind-worker2 kubelet[243]: E0227 18:31:27.667640     243 kuberuntime_manager.go:841] container &Container{Name:test-deployment,Image:k8s.gcr.io/e2e-test-images/agnhost:2.28,Command:[],Args:[],WorkingDir:,Ports:[]ContainerPort{},Env:[]EnvVar{},Resources:ResourceRequirements{Limits:ResourceList{},Requests:ResourceList{},},VolumeMounts:[]VolumeMount{VolumeMount{Name:kube-api-access-bj92j,ReadOnly:true,MountPath:/var/run/secrets/kubernetes.io/serviceaccount,SubPath:,MountPropagation:nil,SubPathExpr:,},},LivenessProbe:nil,ReadinessProbe:nil,Lifecycle:nil,TerminationMessagePath:/dev/termination-log,ImagePullPolicy:IfNotPresent,SecurityContext:nil,Stdin:false,StdinOnce:false,TTY:false,EnvFrom:[]EnvFromSource{},TerminationMessagePolicy:File,VolumeDevices:[]VolumeDevice{},StartupProbe:nil,} start failed in pod test-deployment-7778d6bf57-xdzz6_deployment-8926(73dff120-da92-46e1-82ff-1330cf302a68): CreateContainerConfigError: cannot find volume "kube-api-access-bj92j" to mount into container "test-deployment"
+#+end_example
+
+*** Locate volume
+
+#+BEGIN_SRC shell :results silent :async t
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+grep -a "kube-api-access-bj92j" ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle.log > ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle-issue-volume.log
+#+END_SRC
+
+*** Locate when the volume was around
+
+#+BEGIN_SRC shell :results verbatim :exports both
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+head -c 15 ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle-issue-volume.log && echo
+tail -1 ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle-issue-volume.log | head -c 15 && echo
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+311546	18:30:19
+316082	18:31:27
+#+end_example
+
+*** Full filter for volume
+
+#+BEGIN_SRC shell :results silent :async t
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+nl ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2.log | \
+    head -316082 | \
+    tail -n +311546 > ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle-track-volume-issue.log
+#+END_SRC
+
+*** Volume deleted before pod requests uses it
+
+#+BEGIN_SRC shell :results verbatim :exports both
+LOG_DIR="/tmp/logs"
+PROW_JOB_BASE_NAME="ci-kubernetes-kind-e2e-parallel-1365724105587822592"
+
+cat ${LOG_DIR}/${PROW_JOB_BASE_NAME}-fail2-deployment-lifecycle-track-volume-issue.log | \
+    grep "8926"
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
 #+end_example
