@@ -24,7 +24,7 @@ Flake details where gathered from the following testgrids.
 
 ** Failure message (A)
 
-#+begin_comment
+#+begin_example
 ï¿½[1mSTEPï¿½[0m: creating a Deployment
 ï¿½[1mSTEPï¿½[0m: waiting for Deployment to be created
 ï¿½[1mSTEPï¿½[0m: waiting for all Replicas to be Ready
@@ -43,7 +43,7 @@ Unexpected error:
     }
     timed out waiting for the condition
 occurred
-#+end_comment
+#+end_example
 
 ** Possible cause for the failure
 
@@ -88,6 +88,7 @@ Feb 28 22:52:20 kind-worker kubelet[243]: E0228 22:52:20.825451     243 event.go
 ** Failure message (A)
 
 #+begin_comment
+#+begin_src text
 ¿½[1mSTEPï¿½[0m: creating a Deployment
 ï¿½[1mSTEPï¿½[0m: waiting for Deployment to be created
 ï¿½[1mSTEPï¿½[0m: waiting for all Replicas to be Ready
